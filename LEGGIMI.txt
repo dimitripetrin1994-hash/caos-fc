@@ -1,0 +1,23 @@
+CAOS FC - PRIMA VERSIONE
+========================
+
+CONTENUTO
+- index.html: struttura delle schermate
+- style.css: grafica responsive per telefono e computer
+- app.js: rosa, probabilità, imprevisti, obiettivi e salvataggio
+- manifest.json: impostazioni installazione PWA
+- service-worker.js: cache per riaprire l'app anche offline dopo il primo caricamento
+
+COME PROVARLA IN VISUAL STUDIO CODE
+1. Estrai lo ZIP in una cartella facile da trovare, per esempio Desktop\CaosFC.
+2. Apri Visual Studio Code.
+3. Seleziona File > Apri cartella... e scegli la cartella CaosFC estratta.
+4. Se non hai già l'estensione Live Server, apri la sezione Estensioni a sinistra, cerca "Live Server" e installa quella di Ritwick Dey.
+5. In VS Code fai clic destro su index.html e scegli "Open with Live Server".
+6. Si aprirà l'app nel browser del computer. Prova ad aggiungere giocatori e a estrarre una carta.
+
+COME USARLA SU ANDROID
+Per installare una PWA sul telefono, la pagina deve essere servita tramite HTTPS (oppure localhost sul telefono). Il modo più semplice, dopo aver verificato la versione sul PC, è pubblicare questi file su GitHub Pages o un servizio statico HTTPS e aprire il link con Chrome su Android. Poi usa il menu di Chrome > "Installa app" oppure "Aggiungi a schermata Home", a seconda della versione.
+
+NOTA IMPORTANTE
+Questa è una prima versione funzionante da ampliare. Le probabilità sono pesi relativi delle carte: la carta "Nessun imprevisto" ha peso 50 e le altre carte hanno pesi che, sommati, costituiscono il restante 50. Le conseguenze sono promemoria da applicare manualmente nel tuo manageriale. Le carte con obiettivi di stagione si aggiornano dal pannello Stagione.

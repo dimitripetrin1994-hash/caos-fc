@@ -1,0 +1,12 @@
+{
+  "name": "Caos FC - Imprevisti calcistici",
+  "short_name": "Caos FC",
+  "description": "Gestisci la rosa e affronta gli imprevisti prima di ogni partita.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b110f",
+  "theme_color": "#101b17",
+  "icons": []
+}

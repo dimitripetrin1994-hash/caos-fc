@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101b17">
+  <meta name="description" content="Gestisci la tua rosa e affronta gli imprevisti prima di ogni partita.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <title>Caos FC</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark">CF</div>
+      <div class="brand-copy">
+        <p class="eyebrow">IL TUO MANAGERIALE, SENZA PACE</p>
+        <h1>Caos <span>FC</span></h1>
+      </div>
+      <button id="installBtn" class="icon-button hidden" aria-label="Installa app" title="Installa app">＋</button>
+    </header>
+
+    <main>
+      <section class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">STAGIONE IN CORSO</p>
+          <h2>Il calcio è imprevedibile.<br><span>Tu lo sarai di più.</span></h2>
+          <p class="muted">Prepara la rosa. Estrai la carta. Accetta le conseguenze.</p>
+        </div>
+        <div class="hero-ball" aria-hidden="true">⚽</div>
+      </section>
+
+      <section class="stats-grid" aria-label="Statistiche stagione">
+        <article class="stat panel"><span class="stat-label">Giocatori</span><strong id="playerCount">0</strong><small>nella rosa</small></article>
+        <article class="stat panel"><span class="stat-label">Partite</span><strong id="matchCount">0</strong><small>imprevisti estratti</small></article>
+        <article class="stat panel"><span class="stat-label">Obiettivi</span><strong id="objectiveCount">0</strong><small>ancora attivi</small></article>
+      </section>
+
+      <nav class="tabs" aria-label="Sezioni">
+        <button class="tab active" data-tab="prepartita">Prepartita</button>
+        <button class="tab" data-tab="rosa">La rosa</button>
+        <button class="tab" data-tab="stagione">Stagione</button>
+      </nav>
+
+      <section id="tab-prepartita" class="tab-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">GIORNATA DI CAMPIONATO</p><h2>Prima del fischio</h2></div>
+          <span class="pill">ESTRAZIONE CASUALE</span>
+        </div>
+        <div class="draw-panel panel">
+          <div class="draw-topline"><span class="live-dot"></span> SPOGLIATOIO · PREPARTITA</div>
+          <div id="cardStage" class="card-stage">
+            <div class="card-placeholder">
+              <div class="question-mark">?</div>
+              <h3>Che cosa può andare storto?</h3>
+              <p>Ogni partita può cambiare i tuoi piani.</p>
+            </div>
+          </div>
+          <button id="drawBtn" class="primary-button">⚡ Estrai imprevisto</button>
+          <p class="small-note">50% di probabilità che non succeda nulla. Il resto è caos.</p>
+        </div>
+
+        <div class="section-heading compact-heading"><div><p class="eyebrow">DA RISPETTARE</p><h2>Vincoli attivi</h2></div></div>
+        <div id="activeConstraints" class="stack-list"></div>
+      </section>
+
+      <section id="tab-rosa" class="tab-panel hidden">
+        <div class="section-heading">
+          <div><p class="eyebrow">SQUADRA</p><h2>La tua rosa</h2></div>
+          <span id="rosterTotal" class="pill">0 GIOCATORI</span>
+        </div>
+        <form id="playerForm" class="panel form-panel">
+          <label for="playerName">Nome giocatore</label>
+          <input id="playerName" name="playerName" maxlength="40" placeholder="Es. Marco Rossi" required>
+          <div class="form-row">
+            <div class="field-grow">
+              <label for="playerRole">Ruolo</label>
+              <select id="playerRole" name="playerRole">
+                <option>POR</option><option>DC</option><option>TS</option><option>TD</option>
+                <option>CC</option><option>CDC</option><option>COC</option><option>AS</option>
+                <option>AD</option><option>ATT</option>
+              </select>
+            </div>
+            <div class="field-grow">
+              <label for="playerRating">Valutazione (1–99)</label>
+              <input id="playerRating" name="playerRating" type="number" min="1" max="99" value="70" required>
+            </div>
+          </div>
+          <button class="primary-button" type="submit">＋ Aggiungi giocatore</button>
+        </form>
+        <div class="list-toolbar"><h3>Giocatori registrati</h3><button id="demoBtn" class="text-button">Carica rosa demo</button></div>
+        <div id="rosterList" class="stack-list"></div>
+        <p class="small-note">I dati vengono salvati in questo browser sul dispositivo. Per sicurezza, usa lo stesso browser con cui hai creato la rosa.</p>
+      </section>
+
+      <section id="tab-stagione" class="tab-panel hidden">
+        <div class="section-heading"><div><p class="eyebrow">LA MEMORIA DEL CAOS</p><h2>Stagione</h2></div></div>
+        <div class="panel season-panel">
+          <h3>Obiettivi e conseguenze</h3>
+          <p class="muted">Le carte con obiettivi a lungo termine restano qui finché non le completi o le fallisci.</p>
+          <div id="objectivesList" class="stack-list"></div>
+        </div>
+        <div class="panel season-panel">
+          <div class="list-toolbar"><h3>Ultimi imprevisti</h3><button id="clearHistoryBtn" class="text-button">Svuota storico</button></div>
+          <div id="historyList" class="stack-list"></div>
+        </div>
+        <button id="resetBtn" class="danger-button">Azzera tutti i dati</button>
+      </section>
+    </main>
+    <footer><span>CAOS FC</span><span>La tattica finisce. Il caos no.</span></footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(() => {}));
+    }
+  </script>
+</body>
+</html>
